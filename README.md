@@ -10,7 +10,9 @@
 
 A demo puppy adoption app for Jetpack Compose.
 
-`MainActivity` contains a list of puppies, and clicking on the `Card` takes to the `DetailActivity`
+`MainActivity` contains a list of puppies, and clicking on the `Card` takes to the `DetailActivity`.
+
+Puppy data from https://github.com/cheezy/puppies
 
 
 ## :bulb: Motivation and Context
