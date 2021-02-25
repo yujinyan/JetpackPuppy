@@ -18,16 +18,28 @@ package com.example.androiddevchallenge
 import android.os.Bundle
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.textInputServiceFactory
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.ui.theme.MyTheme
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        title = "JetpackPuppies"
         setContent {
             MyTheme {
                 MyApp()
@@ -39,23 +51,57 @@ class MainActivity : AppCompatActivity() {
 // Start building your app here!
 @Composable
 fun MyApp() {
-    Surface(color = MaterialTheme.colors.background) {
-        Text(text = "Ready... Set... GO!")
+    Surface(Modifier.fillMaxWidth(), color = MaterialTheme.colors.background) {
+        LazyColumn(
+            Modifier.fillMaxWidth(),
+            contentPadding = PaddingValues(horizontal = padding, vertical = padding),
+            verticalArrangement = Arrangement.spacedBy(padding)
+        ) {
+            items(puppies) {
+                PuppyCard(puppy = it)
+            }
+        }
     }
 }
 
-@Preview("Light Theme", widthDp = 360, heightDp = 640)
+val padding = 16.dp
+
 @Composable
-fun LightPreview() {
-    MyTheme {
-        MyApp()
+fun PuppyCard(puppy: Puppy) {
+    val context = LocalContext.current
+    Card(
+        Modifier
+            .fillMaxWidth()
+            .clickable(onClick = { DetailActivity.start(context, puppy) }),
+        elevation = 4.dp
+    ) {
+        Row {
+            Image(
+                painter = painterResource(id = puppy.image),
+                null,
+                modifier = Modifier
+                    .width(112.dp)
+                    .height(96.dp),
+                contentScale = ContentScale.Crop
+            )
+            Column(Modifier.padding(start = padding / 2)) {
+                Text(text = puppy.name, fontSize = 18.sp, fontWeight = FontWeight.Black)
+
+                val genderEmoji = when (puppy.gender) {
+                    Puppy.Gender.Male -> "♂️"
+                    Puppy.Gender.Female -> "♀️"
+                }
+                Text(text = "$genderEmoji ${puppy.gender}", fontSize = 14.sp)
+                Text(text = puppy.breed)
+            }
+        }
     }
 }
 
-@Preview("Dark Theme", widthDp = 360, heightDp = 640)
+
 @Composable
-fun DarkPreview() {
-    MyTheme(darkTheme = true) {
-        MyApp()
-    }
+@Preview
+fun PuppyCardPreview() {
+    PuppyCard(puppy = puppies.first())
 }
+
