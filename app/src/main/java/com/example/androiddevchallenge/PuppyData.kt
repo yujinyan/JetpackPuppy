@@ -1,3 +1,18 @@
+/*
+ * Copyright 2021 The Android Open Source Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package com.example.androiddevchallenge
 
 import android.os.Parcelable
@@ -47,7 +62,6 @@ and friendly and would make a great addition to your family.
         fees = 18.75f
     ),
 
-
     Puppy(
         name = "Hanna",
         breed = "Labrador Retriever Mix",
@@ -56,7 +70,7 @@ and friendly and would make a great addition to your family.
     lovable - playful, typical puppy personality.Hannah is a very confident little girl who is always ready to go go go
     !Hannah is working on basic manners with her forster mon, but would benefit from puppy obedience school.She is also crate trained . If you are interested
             in adding a new puppy to your family, please contact us to see if you are a good match.",
-    """.trimIndent(),
+        """.trimIndent(),
         gender = Puppy.Gender.Female,
         image = R.drawable.hannah,
         fees = 22.99f
@@ -89,7 +103,7 @@ and friendly and would make a great addition to your family.
             typical puppy,
             not much more to say about that.She is just
             sweet, playful, and is a baby.
-            """.trimIndent(),
+        """.trimIndent(),
         gender = Puppy.Gender.Female,
         image = R.drawable.topsy,
         fees = 42f,
@@ -118,7 +132,7 @@ and friendly and would make a great addition to your family.
             youngster looking
     for her forever home.Her momma is a Boxer / Rat Terrier / GSD and
             daddy is a Rat Terrier / Boston Terrier.Twinkie is a very sweet and petite little girl
-    """.trimIndent(),
+        """.trimIndent(),
         gender = Puppy.Gender.Female,
         image = R.drawable.twinkie,
         fees = 22.50f,
@@ -136,7 +150,7 @@ and friendly and would make a great addition to your family.
     runs,
     and anything you 're up for.  On her softer side she also enjoys long belly
             rubs on her adorable piglet belly.
-    """.trimIndent(),
+        """.trimIndent(),
         gender = Puppy.Gender.Female,
         image = R.drawable.ruby_sue,
         fees = 52.50f,
@@ -156,4 +170,3 @@ and friendly and would make a great addition to your family.
         fees = 79.99f
     ),
 )
-

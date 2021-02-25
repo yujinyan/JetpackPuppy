@@ -107,10 +107,8 @@ fun PuppyCard(puppy: Puppy) {
     }
 }
 
-
 @Composable
 @Preview
 fun PuppyCardPreview() {
     PuppyCard(puppy = puppies.first())
 }
-

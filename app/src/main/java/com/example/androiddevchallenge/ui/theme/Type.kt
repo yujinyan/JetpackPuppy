@@ -15,14 +15,11 @@
  */
 package com.example.androiddevchallenge.ui.theme
 
-import androidx.compose.material.Colors
 import androidx.compose.material.Typography
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.google.android.material.color.MaterialColors
 
 // Set of Material typography styles to start with
 val typography = Typography(
