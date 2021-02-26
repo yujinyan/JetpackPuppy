@@ -16,72 +16,69 @@
 package com.example.androiddevchallenge
 
 import android.os.Bundle
+import androidx.activity.OnBackPressedDispatcher
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.animation.Crossfade
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.Card
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.androiddevchallenge.ui.theme.MyTheme
+import com.example.androiddevchallenge.utils.Navigator
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         title = "JetpackPuppies"
         setContent {
-            MyTheme {
-                MyApp()
+            MyApp(onBackPressedDispatcher)
+        }
+    }
+}
+
+@Composable
+fun MyApp(backDispatcher: OnBackPressedDispatcher) {
+    val navigator: Navigator<Destination> =
+        rememberSaveable(saver = Navigator.saver(backDispatcher)) {
+            Navigator(Destination.List, backDispatcher)
+        }
+
+    MyTheme {
+        Crossfade(navigator.current) { destination: Destination ->
+            when (destination) {
+                is Destination.List -> PuppyListScreen(navigator)
+                is Destination.Detail -> PuppyDetailScreen(puppy = destination.puppy)
             }
         }
     }
 }
 
-// Start building your app here!
-@Composable
-fun MyApp() {
-    Surface(Modifier.fillMaxWidth(), color = MaterialTheme.colors.background) {
-        LazyColumn(
-            Modifier.fillMaxWidth(),
-            contentPadding = PaddingValues(horizontal = padding, vertical = padding),
-            verticalArrangement = Arrangement.spacedBy(padding)
-        ) {
-            items(puppies) {
-                PuppyCard(puppy = it)
-            }
-        }
-    }
-}
+
 
 val padding = 16.dp
 
 @Composable
-fun PuppyCard(puppy: Puppy) {
-    val context = LocalContext.current
+fun PuppyCard(puppy: Puppy, onClick: () -> Unit) {
     Card(
         Modifier
             .fillMaxWidth()
-            .clickable(onClick = { DetailActivity.start(context, puppy) }),
+            .clickable(onClick = onClick),
         elevation = 4.dp
     ) {
         Row {
@@ -110,5 +107,5 @@ fun PuppyCard(puppy: Puppy) {
 @Composable
 @Preview
 fun PuppyCardPreview() {
-    PuppyCard(puppy = puppies.first())
+    PuppyCard(puppy = puppies.first()) {}
 }

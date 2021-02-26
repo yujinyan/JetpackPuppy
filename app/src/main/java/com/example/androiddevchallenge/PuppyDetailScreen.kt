@@ -15,11 +15,6 @@
  */
 package com.example.androiddevchallenge
 
-import android.content.Context
-import android.content.Intent
-import android.os.Bundle
-import androidx.activity.compose.setContent
-import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -40,33 +35,8 @@ import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.sp
-import com.example.androiddevchallenge.ui.theme.MyTheme
 import java.util.Locale
 
-class DetailActivity : AppCompatActivity() {
-    companion object {
-        private const val PUPPY: String = "PUPPY"
-
-        fun start(context: Context, puppy: Puppy) {
-            val intent = Intent(context, DetailActivity::class.java).apply {
-                putExtra(PUPPY, puppy)
-            }
-            context.startActivity(intent)
-        }
-    }
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        val puppy: Puppy? = intent.extras?.getParcelable(PUPPY)
-        requireNotNull(puppy) { "puppy is null" }
-        title = puppy.name
-        setContent {
-            MyTheme {
-                PuppyDetailScreen(puppy = puppy)
-            }
-        }
-    }
-}
 
 @Composable
 fun PuppyDetailScreen(puppy: Puppy) {
